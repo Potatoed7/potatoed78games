@@ -161,6 +161,7 @@ height: 0.24225vw;
                     //update highscore
                     if (score > highscore) {
                         highscore = score
+                        localStorage.setItem("highscore", highscore)
                         document.getElementById("highScore").innerText = "Highscore: " + highscore;
                     }
                     //snake head
