@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport", content="width=divice-width, initail scale=1.0, user-scalable=no">
+        <title>Shut the box</title>
+        <style>
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+}
+
+#base {
+    width: 65.4075vw;
+    height: 28.2625vw;
+    background-color: green;
+
+    display: flex;
+    flex-wrap: nowrap;
+
+    margin: 0 auto;
+}
+
+#wall {
+    padding: 0px;
+    width: 65.4075vw;
+    border: 1.1305vw solid rgb(69, 37, 2);
+    margin: 0 auto;
+}
+
+#admitlose {
+    width: 18.5725vw;
+    height: 8.075vw;
+    font-size: 2.4225vw;
+
+    margin: 0 auto;
+}
+#resetButton {
+    width:18.5725vw;
+    height: 8.075vw;
+    font-size: 2.4225vw;
+
+    margin: 0 auto;
+}
+
+.flexdiv {
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+#redDi {
+    margin: 0 left;
+}
+.rednoroll {
+    padding: 6.05625vw;
+    background-color: rgb(157, 0, 0);
+    border: 0.24225vw solid rgb(157, 0, 0);
+}
+.redroll {
+    padding: 6.05625vw;
+    background-color: red;
+    border: 0.24225vw solid red;
+}
+
+#blueDi {
+    margin: 0 right;
+}
+.blueroll {
+    padding: 6.05625vw;
+    background-color: blue;
+    border: 0.24225vw solid blue;
+}
+.bluenoroll {
+    padding: 6.05625vw;
+    background-color: rgb(4, 4, 147);
+    border: 0.24225vw solid rgb(4, 4, 147);
+}
+
+#tCount {
+    padding: 1.615 2.4225vw;
+    border: 0.1615vw solid black;
+}
+
+#tiletotal {
+    padding: 0.40375vw 2.4225vw;
+    border: 0.1615vw solid black;
+}
+
+#gameover {
+    color: black;
+    font-size: 1.615vw;
+}
+
+.tileUp {
+    width: 7.2675vw;
+    height: 9.69vw;
+
+    background-color: rgb(169, 110, 28);
+    vertical-align: middle;
+    font-size: 2.4225vw;
+}
+
+.tileDown {
+    width: 7.2675vw;
+    height: 9.69vw;
+
+    background-color: rgb(114, 77, 26);
+    vertical-align: bottom;
+    font-size: 2.4225vw;
+}
+
+.vertical_line {
+    border-right: 0.1615vw solid black;
+}
+.horizontal_line {
+    border-top: 0.1615vw solid black;
+    border-bottom: 0.1615vw solid black;
+}
+.left_line {
+    border-left: 0.1615vw solid black;
+}
+
+
+</style>
+<script>
+var gameOver = false;
+var tile;
+var total = 0;
+var redRolled = false;
+var blueRolled = false;
+var currtiletotal = 45;
+var smallesttile = 1;
+
+window.onload = function() {
+    Start_game();
+    roll();
+}
+
+function Start_game() {
+    if (gameOver == true) {
+        return;
+    }
+
+    for (i = 1; i < 10; i++) {
+        let tile = document.createElement("div");
+        tile.id = i.toString();
+        tile.classList.add("tileUp")
+        tile.classList.add("horizontal_line")
+        tile.classList.add("vertical_line")
+        if (i == 0) {
+            tile.classList.add("left_line")
+        }
+        let tileNum = document.createTextNode(i.toString())
+        tile.appendChild(tileNum);
+
+        tile.addEventListener('click', flipTile);
+
+        document.getElementById("base").append(tile);
+    }
+   
+}
+
+ function roll() {   
+    if (gameOver == true) {
+        return;
+    }
+
+    document.getElementById('redDi').addEventListener('click', function(){
+        if (gameOver == true) {
+            return;
+        }
+        if (redRolled == false) {
+            let randomred =Math.floor(Math.random() * 6 + 1);
+            // let randomred = 4;
+            document.getElementById("redDi").innerText = randomred;
+            document.getElementById("redDi").classList.remove('rednoroll');
+            document.getElementById("redDi").classList.add('redroll');
+            redRolled = true; 
+            total += randomred;
+            document.getElementById("tCount").innerHTML = "Total: " + total;
+        }
+    });
+    
+    document.getElementById('blueDi').addEventListener('click', function(){
+        if (gameOver == true) {
+            return;
+        }
+        if (blueRolled == false ) {
+            let randomblu =Math.floor(Math.random() * 6 + 1);
+            // let randomblu = 5;
+            document.getElementById("blueDi").innerText = randomblu;
+            document.getElementById("blueDi").classList.remove('bluenoroll');
+            document.getElementById("blueDi").classList.add('blueroll');
+            blueRolled = true; 
+            total += randomblu;
+            document.getElementById("tCount").innerHTML = "Total: " + total;
+        } 
+    });     
+}
+
+function flipTile() {
+    if (gameOver == true) {
+        return;
+    }
+
+    i = this.id;
+    if (total >= i) {
+        var element = document.getElementById(i.toString());
+        if (element.classList.contains("tileUp")) {
+            element.classList.remove("tileUp");
+            element.classList.add("tileDown");
+            total -= i;
+            document.getElementById("tCount").innerHTML = "Total: " + total;
+
+            currtiletotal -= i;
+            
+        }
+        if (redRolled == true && total == 0 && blueRolled == true) {
+            redRolled = false;
+            document.getElementById("redDi").classList.add('rednoroll');
+            document.getElementById("redDi").classList.remove('redroll');
+            blueRolled = false;
+            document.getElementById("blueDi").classList.add('bluenoroll');
+            document.getElementById("blueDi").classList.remove('blueroll');
+        }
+    }
+    for (i = 1; i < 10; i++) {
+        let tile = document.getElementById(i.toString());
+        if (tile.classList.contains("tileUp")) {
+            smallesttile = i;
+            game_over();
+            return;
+        } else if (currtiletotal == 0) {
+                // win
+                if (total == 0) {
+            gameOver = true;
+            document.getElementById("gameover").innerHTML = "win";
+            newGame();
+            return;
+            } else {
+                // lose (too much)
+                gameOver = true;
+                document.getElementById("gameover").innerHTML = "lose";
+                newGame();
+                return;
+          }
+        }
+    }
+}
+
+function game_over() {
+
+    // win is in flipTile()
+
+    //lose
+    
+    
+    //(too low to continue)
+    if (total < smallesttile && redRolled == true && blueRolled == true) {
+        gameOver = true;
+        document.getElementById("gameover").innerHTML = "lose";
+        newGame();
+        return;
+    }
+}  
+//(admit defeat)
+function surrender() {
+        newGame();
+        gameOver = true;
+        document.getElementById("gameover").innerHTML = "sore loser";
+        
+    }
+
+function newGame() {    
+    let cresetBtn = document.createElement("button");
+    cresetBtn.id = "resetButton";
+    cresetBtn.innerHTML = "reset game";
+    cresetBtn.onclick = function () {
+
+        document.getElementById("gameover").innerHTML = "";
+        gameOver = false;
+        total = 0;
+        redRolled = true;
+        blueRolled = true;
+        smallesttile = 1;
+        currtiletotal = 45; 
+        if (redRolled == true && total == 0 && blueRolled == true) {
+            redRolled = false;
+            document.getElementById("redDi").classList.add('rednoroll');
+            document.getElementById("redDi").classList.remove('redroll');
+            blueRolled = false;
+            document.getElementById("blueDi").classList.add('bluenoroll');
+            document.getElementById("blueDi").classList.remove('blueroll');
+        } 
+
+        for (i = 1; i < 10; i++) {
+            document.getElementById(i.toString()).remove();
+        }
+
+        let closebtn = document.createElement("button");
+        closebtn.id = "admitlose";
+        closebtn.innerHTML = "Admit defeat";
+        closebtn.onclick = function () {  
+            newGame();
+            gameOver = true;
+            document.getElementById("gameover").innerHTML = "loser";
+        };
+
+        let resetbtn = document.getElementById("resetButton");
+        resetbtn.remove();
+
+        document.getElementById("buttons").append(closebtn);
+
+        Start_game();
+        roll();
+    };
+
+    let losebtn = document.getElementById("admitlose");
+    losebtn.remove();
+    document.getElementById("buttons").append(cresetBtn);
+}
+        </script>
+    </head>
+
+    <body>
+        <h1>SHUT THE BOX</h1>
+        <hr>
+        
+        <div class="flexdiv">
+            <div id="wall">
+            
+                <div id="base">
+                
+                </div> 
+            </div>
+            <div >
+                <div id="buttons">
+                    <button id="admitlose" onclick="surrender()">Admit lose</button> <!--  cannot remove  -->
+                </div>    
+                <div class="flexdiv">
+                    <div id="redDi" class="rednoroll">1</div> 
+                    <div id="blueDi" class="bluenoroll">6</div>
+                </div>
+                <div id="tCount">total :</div>
+                <!-- <div id="tiletotal">tile total: 45</div> -->
+            </div>
+        </div>
+        <div id="gameover"></div>
+        
+        
+    </body>
+</html>
