@@ -41,7 +41,8 @@ height: 0.24225vw;
             
             //GAMEOVER
             var gameOver = false;
-            
+
+            var actioned = false;
             
             window.onload = function() { //pretty much the 'draw=function() {}' but not yet
                 if(localStorage.getItem("highscore") != null) { //has previous highscore
@@ -69,6 +70,9 @@ height: 0.24225vw;
                 if(gameOver) {
                     return;   
                 }
+
+                actioned = false;
+                
                 context.fillStyle = "black";
                 context.fillRect(0, 0, board.width, board.height);
             
@@ -140,7 +144,10 @@ height: 0.24225vw;
             
             
             function changeDirection(b) { //!wth is b.code...! it makes no sense normal "code" does nth but a letter i dun get it
-                let balnk = 0;
+                if (actioned == true){ 
+                    return;
+                }
+                actioned = true;
                 if (b.code == "ArrowUp" && velocityY != 1){
                     velocityX = 0;
                     velocityY = -1;
