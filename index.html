@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport", content="width=divice-width, initail scale=1.0">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+        <link href="styles.css" rel="stylesheet">
+        <title>Home</title>
+    </head>
+    <body>
+        <nav class="navbar navbar-expand-lg bg-light">
+            <div class="container-fluid">
+                <div style='display: flex;'>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <a class="navbar-brand" href="index.html" style="margin-left: 16px">Home</a>
+                </div>
+                <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link" href="snake.html">Snake game</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="shut_the_box.html">Shut The Box game</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="cat.html">Cat</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="potato.html">Potato</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!-- start here -->
+
+        <div style="margin: 10px">
+            <h2>
+               This is the homepage!
+            </h2>
+            <br>
+            <h4>
+               Using the navigation bar present in all files, you can access any one easily.
+            </h4>
+            <div style='height: 1px'></div>
+            <h4>
+               This will be to the homepage of past games which I have created and some other random things made for cs50.
+            </h4>
+        </div>
+        <div style='display: flex; justify-content: space-around; flex-wrap: wrap;'>
+            <div class="card" style="width: 25rem;">
+                <img src="pics/Snake.png" class="card-img-top" alt="snake preview">
+                <div class="card-body">
+                    <h5 class="card-title">Snake game</h5>
+                    <p class="card-text">Showcase of my snake game</p>
+                    <a href="snake.html" class="btn btn-primary">Go to snake</a>
+                </div>
+            </div>
+            <div class="card" style="width: 25rem;">
+                <img src="pics/stb.png" class="card-img-top" alt="Shut The Box preview">
+                <div class="card-body">
+                    <h5 class="card-title">Shut the box game</h5>
+                    <p class="card-text">Showcase of my snake game</p>
+                    <a href="shut_the_box.html" class="btn btn-primary">Go to Shut the box</a>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
